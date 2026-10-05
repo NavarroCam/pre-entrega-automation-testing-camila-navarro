@@ -34,3 +34,22 @@ def test_titulo_inventario(driver_logueado):
     encabezado = esperar_elemento_visible(driver_logueado, (By.CSS_SELECTOR, ".title"))
     assert encabezado.text == "Products"
     logger.info("Título del inventario verificado")
+
+
+def test_productos_visibles(driver_logueado):
+    # Hay productos visibles y se muestra nombre/precio del primero, al menos un producto tiene que estar visible
+    esperar_elemento_visible(driver_logueado, (By.CLASS_NAME, "inventory_item"))
+    productos = driver_logueado.find_elements(By.CLASS_NAME, "inventory_item")
+    assert len(productos) > 0, "No hay productos visibles"
+
+    # Obtener nombre y precio del primer producto
+    primer_producto = productos[0]
+    nombre = primer_producto.find_element(By.CLASS_NAME, "inventory_item_name").text
+    precio = primer_producto.find_element(By.CLASS_NAME, "inventory_item_price").text
+
+    assert nombre != "", "El primer producto no tiene nombre"
+    assert precio.startswith("$"), f"Precio con formato inesperado: {precio}"
+
+    logger.info(f"Cantidad de productos: {len(productos)}")
+    logger.info(f"Primer producto: {nombre} - {precio}")
+    print(f"Primer producto: {nombre} - {precio}")
