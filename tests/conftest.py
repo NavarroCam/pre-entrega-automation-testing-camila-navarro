@@ -15,7 +15,6 @@ def driver():
     logger.info("Abriendo navegador")
     navegador = crear_driver()
     yield navegador
-    import time; time.sleep(3) 
     logger.info("Cerrando navegador")
     navegador.quit()
 
