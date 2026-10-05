@@ -67,3 +67,34 @@ def test_elementos_interfaz(driver_logueado):
     assert carrito.is_displayed(), "El carrito no está visible"
 
     logger.info("Elementos de la interfaz presentes")
+
+
+# 3. Carrito
+def test_agregar_producto_al_carrito(driver_logueado):
+    # Agregar un producto incrementa el contador y aparece en el carrito
+    esperar_elemento_visible(driver_logueado, (By.CLASS_NAME, "inventory_item"))
+
+    # Guardar el nombre del primer producto para compararlo después
+    primer_producto = driver_logueado.find_elements(By.CLASS_NAME, "inventory_item")[0]
+    nombre_esperado = primer_producto.find_element(By.CLASS_NAME, "inventory_item_name").text
+
+    # Clic en "Add to cart" del primer producto
+    primer_producto.find_element(By.CSS_SELECTOR, "button[data-test^='add-to-cart']").click()
+
+    # Espera explícita del badge del carrito y validación del contador
+    badge = esperar_elemento_visible(driver_logueado, (By.CLASS_NAME, "shopping_cart_badge"))
+    assert badge.text == "1", f"El contador debería ser 1, pero es {badge.text}"
+
+    # Navegar al carrito
+    driver_logueado.find_element(By.CLASS_NAME, "shopping_cart_link").click()
+    WebDriverWait(driver_logueado, TIEMPO_ESPERA).until(EC.url_contains("/cart.html"))
+
+    # Comprobar que el producto agregado aparece en el carrito
+    item = esperar_elemento_visible(driver_logueado, (By.CLASS_NAME, "cart_item"))
+    nombre_en_carrito = item.find_element(By.CLASS_NAME, "inventory_item_name").text
+    assert nombre_en_carrito == nombre_esperado, (
+        f"Se esperaba '{nombre_esperado}' en el carrito, pero aparece '{nombre_en_carrito}'"
+    )
+
+    logger.info(f"'{nombre_esperado}' agregado y visible en el carrito")
+    print("Test OK")
