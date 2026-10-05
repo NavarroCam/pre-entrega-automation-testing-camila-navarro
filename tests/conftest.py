@@ -4,7 +4,7 @@ import logging
 
 import pytest
 
-from utils.helpers import crear_driver
+from utils.helpers import crear_driver, realizar_login
 
 logger = logging.getLogger(__name__)
 
@@ -18,3 +18,11 @@ def driver():
     import time; time.sleep(3) 
     logger.info("Cerrando navegador")
     navegador.quit()
+
+
+@pytest.fixture
+def driver_logueado(driver):
+    # Navegador con el login ya realizado
+    logger.info("Iniciando sesión como standard_user")
+    realizar_login(driver)
+    return driver

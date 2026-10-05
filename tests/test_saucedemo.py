@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 # 1. Login
 def test_login_exitoso(driver):
-    """Un usuario válido inicia sesión y es redirigido al inventario."""
+    # Un usuario válido inicia sesión y es redirigido al inventario
     realizar_login(driver)
 
     # Espera explícita: la URL debe cambiar a /inventory.html
@@ -26,3 +26,11 @@ def test_login_exitoso(driver):
     assert encabezado.text == "Products", f"Encabezado inesperado: {encabezado.text}"
 
     logger.info("Login exitoso")
+
+
+# 2. Catálogo
+def test_titulo_inventario(driver_logueado):
+    # El título de la página de inventario es el correcto
+    encabezado = esperar_elemento_visible(driver_logueado, (By.CSS_SELECTOR, ".title"))
+    assert encabezado.text == "Products"
+    logger.info("Título del inventario verificado")
