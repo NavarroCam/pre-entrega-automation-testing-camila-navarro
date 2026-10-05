@@ -1,0 +1,20 @@
+2026-10-05 19:55:08 [INFO] conftest: Abriendo navegador
+2026-10-05 19:55:09 [INFO] test_saucedemo: Login exitoso
+2026-10-05 19:55:09 [INFO] conftest: Cerrando navegador
+2026-10-05 19:55:11 [INFO] conftest: Abriendo navegador
+2026-10-05 19:55:11 [INFO] conftest: Iniciando sesión como standard_user
+2026-10-05 19:55:12 [INFO] test_saucedemo: Título del inventario verificado
+2026-10-05 19:55:12 [INFO] conftest: Cerrando navegador
+2026-10-05 19:55:14 [INFO] conftest: Abriendo navegador
+2026-10-05 19:55:14 [INFO] conftest: Iniciando sesión como standard_user
+2026-10-05 19:55:15 [INFO] test_saucedemo: Cantidad de productos: 6
+2026-10-05 19:55:15 [INFO] test_saucedemo: Primer producto: Sauce Labs Backpack - $29.99
+2026-10-05 19:55:15 [INFO] conftest: Cerrando navegador
+2026-10-05 19:55:17 [INFO] conftest: Abriendo navegador
+2026-10-05 19:55:18 [INFO] conftest: Iniciando sesión como standard_user
+2026-10-05 19:55:19 [INFO] test_saucedemo: Elementos de la interfaz presentes
+2026-10-05 19:55:19 [INFO] conftest: Cerrando navegador
+2026-10-05 19:55:21 [INFO] conftest: Abriendo navegador
+2026-10-05 19:55:22 [INFO] conftest: Iniciando sesión como standard_user
+2026-10-05 19:55:23 [INFO] test_saucedemo: 'Sauce Labs Backpack' agregado y visible en el carrito
+2026-10-05 19:55:23 [INFO] conftest: Cerrando navegador
