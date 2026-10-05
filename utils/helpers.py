@@ -2,6 +2,8 @@
 
 import os
 
+from datetime import datetime
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -15,6 +17,11 @@ PASSWORD_VALIDO = "secret_sauce"
 
 # Tiempo máximo (en segundos) de las esperas explícitas
 TIEMPO_ESPERA = 10
+
+# Carpeta donde se guardan las capturas de pantalla (reports/capturas)
+CARPETA_CAPTURAS = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "reports", "capturas"
+)
 
 
 def crear_driver():
@@ -49,3 +56,12 @@ def realizar_login(driver, usuario=USUARIO_VALIDO, password=PASSWORD_VALIDO):
 
     # Localización por CSS para el botón de login
     driver.find_element(By.CSS_SELECTOR, "input[type='submit']").click()
+
+
+def tomar_captura(driver, nombre_test):
+    # Guarda una captura de pantalla en reports/capturas y devuelve la ruta
+    os.makedirs(CARPETA_CAPTURAS, exist_ok=True)
+    marca_tiempo = datetime.now().strftime("%Y%m%d_%H%M%S")
+    ruta = os.path.join(CARPETA_CAPTURAS, f"{nombre_test}_{marca_tiempo}.png")
+    driver.save_screenshot(ruta)
+    return ruta
