@@ -24,3 +24,28 @@ def crear_driver():
     opciones.add_argument("--disable-dev-shm-usage")
     opciones.add_argument("--window-size=1920,1080")
     return webdriver.Chrome(options=opciones)
+
+
+def esperar_elemento_visible(driver, localizador):
+    """Espera explícitamente a que un elemento sea visible y lo devuelve."""
+    return WebDriverWait(driver, TIEMPO_ESPERA).until(
+        EC.visibility_of_element_located(localizador)
+    )
+
+
+def realizar_login(driver, usuario=USUARIO_VALIDO, password=PASSWORD_VALIDO):
+    #Abre saucedemo.com e inicia sesión con las credenciales indicadas
+    driver.get(URL_BASE)
+
+    # Espera explícita: el formulario de login tiene que estar visible
+    campo_usuario = esperar_elemento_visible(driver, (By.ID, "user-name"))
+    campo_usuario.clear()
+    campo_usuario.send_keys(usuario)
+
+    # Localización por NAME para la contraseña
+    campo_password = driver.find_element(By.NAME, "password")
+    campo_password.clear()
+    campo_password.send_keys(password)
+
+    # Localización por CSS para el botón de login
+    driver.find_element(By.CSS_SELECTOR, "input[type='submit']").click()
