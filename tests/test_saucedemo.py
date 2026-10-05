@@ -53,3 +53,17 @@ def test_productos_visibles(driver_logueado):
     logger.info(f"Cantidad de productos: {len(productos)}")
     logger.info(f"Primer producto: {nombre} - {precio}")
     print(f"Primer producto: {nombre} - {precio}")
+
+
+def test_elementos_interfaz(driver_logueado):
+    # Menú, filtro y carrito están presentes, espera del menú hamburguesa (localizado por ID)
+    menu = esperar_elemento_visible(driver_logueado, (By.ID, "react-burger-menu-btn"))
+    # Filtro de ordenamiento y carrito (localizados por CLASS_NAME)
+    filtro = driver_logueado.find_element(By.CLASS_NAME, "product_sort_container")
+    carrito = driver_logueado.find_element(By.CLASS_NAME, "shopping_cart_link")
+
+    assert menu.is_displayed(), "El menú no está visible"
+    assert filtro.is_displayed(), "El filtro no está visible"
+    assert carrito.is_displayed(), "El carrito no está visible"
+
+    logger.info("Elementos de la interfaz presentes")
